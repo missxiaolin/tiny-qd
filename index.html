@@ -13,14 +13,14 @@
         singleSpa.registerApplication('app1', async () => {
             // 这个函数需要返回结果
             return {
-                bootstrap: async () => {
-
+                bootstrap: async (props) => {
+                    console.log('bootstrap')
                 },
-                mount: async () => {
-
+                mount: async (props) => {
+                    console.log('mount')
                 },
-                unmount: async () => {
-
+                unmount: async (props) => {
+                    console.log('unmount')
                 }
             }
         },
