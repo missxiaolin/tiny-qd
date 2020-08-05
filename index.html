@@ -6,6 +6,32 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <script src="/lib/umd/single-spa.js"></script>
+
+    <script>
+        // 参数 1）注册应用名称 2）加载app的方法必须是返回一个promise 方法
+        singleSpa.registerApplication('app1', async () => {
+            // 这个函数需要返回结果
+            return {
+                bootstrap: async () => {
+
+                },
+                mount: async () => {
+
+                },
+                unmount: async () => {
+
+                }
+            }
+        },
+        location => location.hash.startsWith('#/app1'),
+        {store: {name: 'ceshi'}}
+        )
+        // 启动应用
+        singleSpa.start()
+
+        // registerApplication 默认会加载应用
+        // start 会挂载应用
+    </script>
 </body>
 </html>

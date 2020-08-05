@@ -1,1 +1,1 @@
-{"version":3,"file":"single-spa.js","sources":[],"sourcesContent":[],"names":[],"mappings":";;;;;;;"}
+{"version":3,"file":"single-spa.js","sources":["../../src/application/app.js","../../src/start.js"],"sourcesContent":["export function registerApplication() {\n    \n}","export function start() {\n\n}"],"names":[],"mappings":";;;;;;IAAO,SAAS,mBAAmB,GAAG;IACtC;IACA;;ICFO,SAAS,KAAK,GAAG;AACxB;IACA;;;;;;;;;;;;;"}
