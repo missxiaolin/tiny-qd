@@ -1,3 +1,5 @@
+import { NOT_LOADED } from './app.helpers'
+import { reroute } from '../navigations/reroute'
 
 /**
  * 微前端注册
@@ -16,7 +18,9 @@ export function registerApplication(appName, loadApp, activeWhen, customProps) {
         name: appName,
         loadApp,
         activeWhen,
-        customProps
+        customProps,
+        status: NOT_LOADED
     })
+    reroute() // 加载应用
     // vue 一系列的生命周期
 }
