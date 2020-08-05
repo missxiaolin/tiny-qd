@@ -1,4 +1,5 @@
-import { NOT_LOADED } from './app.helpers'
+import { NOT_LOADED, SKIP_BECAUSE_BROKEN, shouldBeActive, LOADING_SOURCE_CODE, NOT_BOOTSTRAPPED, NOT_MOUNTED, BOOTSTRAPPING, MOUNTED } from "./app.helpers";
+
 import { reroute } from '../navigations/reroute'
 
 /**
@@ -23,4 +24,34 @@ export function registerApplication(appName, loadApp, activeWhen, customProps) {
     })
     reroute() // 加载应用
     // vue 一系列的生命周期
+}
+
+export function getAppChanges() {
+    const appsToUnmount = []; // 要卸载的app
+    const appsToLoad = []; // 要加载的app
+    const appsToMount = []; // 需要挂载的
+    apps.forEach(app => {
+        // 需不需要被加载
+        const appSholdBeActive = shouldBeActive(app);
+        switch (app.status) { // toLoad
+            case NOT_LOADED:
+            case LOADING_SOURCE_CODE:
+                if (appSholdBeActive) {// 做判断了
+                    appsToLoad.push(app);
+                }
+                break
+            case NOT_BOOTSTRAPPED: // toMount
+            case BOOTSTRAPPING:
+            case NOT_MOUNTED:
+                if (appSholdBeActive) {
+                    appsToMount.push(app);
+                }
+                break;
+            case MOUNTED:  // unmount
+                if (!appSholdBeActive) {
+                    appsToUnmount.push(app)
+                }
+        }
+    });
+    return { appsToUnmount, appsToLoad, appsToMount }
 }
