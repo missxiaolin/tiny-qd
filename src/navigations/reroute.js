@@ -1,6 +1,9 @@
 import { started } from '../start.js'
 import { getAppChanges } from "../application/app.js";
 import { toLoadPromise } from '../lifecycles/load.js';
+import { toUnmountPromise } from "../lifecycles/unmount";
+import { toBootstrapPromise } from "../lifecycles/bootstrap";
+import { toMountPromise } from "../lifecycles/mount";
 
 
 // 核心应用处理方法
@@ -22,7 +25,20 @@ export function reroute() {
         console.log(apps)
     }
     async function performAppChanges() { // 根据路径来装载应用
-        
+        // 先卸载不需要的应用 
+        let unmountPromises = appsToUnmount.map(toUnmountPromise); // 需要去卸载的app
+        // 去加载需要的应用
+
+        // 这个应用可能需要加载 但是路径不匹配  加载app1 的时候，这个时候切换到了app2
+        appsToLoad.map(async (app) => { // 将需要求加载的应用拿到 => 加载 => 启动 => 挂载
+            app = await toLoadPromise(app);
+            app = await toBootstrapPromise(app);
+            return toMountPromise(app);
+        })
+        appsToMount.map(async (app) => {
+            app = await toBootstrapPromise(app);
+            return toMountPromise(app);
+        });
     }
 }
 
