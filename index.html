@@ -62,6 +62,9 @@
         singleSpa.start(); // 启动这个应用
         // registerApplication 默认会加载应用
         // start时会挂载应用
+        window.addEventListener('hashchange', function() {
+            console.log('测试')
+        })
     </script>
 </body>
 

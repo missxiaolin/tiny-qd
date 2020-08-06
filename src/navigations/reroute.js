@@ -1,9 +1,11 @@
 import { started } from '../start.js'
-import { getAppChanges } from "../application/app.js";
-import { toLoadPromise } from '../lifecycles/load.js';
-import { toUnmountPromise } from "../lifecycles/unmount";
-import { toBootstrapPromise } from "../lifecycles/bootstrap";
-import { toMountPromise } from "../lifecycles/mount";
+import { getAppChanges } from "../application/app.js"
+import { toLoadPromise } from '../lifecycles/load.js'
+import { toUnmountPromise } from "../lifecycles/unmount"
+import { toBootstrapPromise } from "../lifecycles/bootstrap"
+import { toMountPromise } from "../lifecycles/mount"
+
+import './navigator-events'
 
 
 // 核心应用处理方法

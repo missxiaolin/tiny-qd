@@ -4,12 +4,14 @@ import { reroute } from "./reroute";
 
 export const routingEventsListeningTo = ['hashchange', 'popstate'];
 
-function urlReroute() {
-    reroute([], arguments); // 会根据路径重新加载不同的应用
-}
+
 const capturedEventListeners = { // 后续挂载的事件先暂存起来
     hashchange: [],
     popstate: [] // 当应用切换完成后可以调用
+}
+
+function urlReroute() {
+    reroute([], arguments); // 会根据路径重新加载不同的应用
 }
 
 // 我们处理应用加载的逻辑是在最前面
@@ -22,6 +24,7 @@ window.addEventListener = function (eventName, fn) {
         capturedEventListeners[eventName].push(fn);
         return;
     }
+    
     return originalAddEventListener.apply(this, arguments)
 }
 window.removeEventListener = function (eventName, fn) {
