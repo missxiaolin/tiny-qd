@@ -12,6 +12,16 @@ const capturedEventListeners = { // 后续挂载的事件先暂存起来
 
 function urlReroute() {
     reroute([], arguments); // 会根据路径重新加载不同的应用
+    capturedEventListeners.hashchange.forEach((fn) => {
+        if (fn) {
+            fn()
+        }
+    })
+    capturedEventListeners.popstate.forEach((fn) => {
+        if (fn) {
+            fn()
+        }
+    })
 }
 
 // 我们处理应用加载的逻辑是在最前面
