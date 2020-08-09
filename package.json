@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "rimraf lib && rollup -c -w",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "rollup -c -w"
   },
@@ -19,6 +20,16 @@
   "homepage": "https://github.com/missxiaolin/tiny-qd#readme",
   "devDependencies": {
     "rollup": "^2.23.0",
-    "rollup-plugin-serve": "^1.0.3"
+    "rollup-plugin-serve": "^1.0.3",
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-node-resolve": "^8.4.0",
+    "@types/jest": "^26.0.9",
+    "css.escape": "^1.5.1",
+    "rimraf": "^3.0.2"
+  },
+  "dependencies": {
+    
   }
 }
