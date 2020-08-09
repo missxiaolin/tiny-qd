@@ -1,13 +1,17 @@
-import { NOT_MOUNTED, MOUNTING, MOUNTED } from "../application/app.helpers";
+import { NOT_MOUNTED, MOUNTING, MOUNTED } from "../application/app.helpers"
 
+/**
+ * 
+ * @param {} app 
+ */
 export async function toMountPromise(app){
     if(app.status !== NOT_MOUNTED){
-        return app;
+        return app
     }
-    app.status = MOUNTING;
+    app.status = MOUNTING
     await app.mount(app.customProps);
-    app.status = MOUNTED;
-    return app;
+    app.status = MOUNTED
+    return app
 }
 
 

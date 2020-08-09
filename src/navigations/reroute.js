@@ -17,29 +17,29 @@ export function reroute() {
     // start方法调用时是同步的，但是加载流程是异步饿
     if (started) {
         // app装载
-        return performAppChanges();
+        return performAppChanges()
     } else {
         // 注册应用时 需要预先加载
         return loadApps()
     }
     async function loadApps() { // 预加载应用
-        let apps = await Promise.all(appsToLoad.map(toLoadPromise)); // 就是获取到bootstrap,mount和unmount方法放到app上
+        let apps = await Promise.all(appsToLoad.map(toLoadPromise)) // 就是获取到bootstrap,mount和unmount方法放到app上
         console.log(apps)
     }
     async function performAppChanges() { // 根据路径来装载应用
         // 先卸载不需要的应用 
-        let unmountPromises = appsToUnmount.map(toUnmountPromise); // 需要去卸载的app
+        let unmountPromises = appsToUnmount.map(toUnmountPromise) // 需要去卸载的app
         // 去加载需要的应用
 
         // 这个应用可能需要加载 但是路径不匹配  加载app1 的时候，这个时候切换到了app2
         appsToLoad.map(async (app) => { // 将需要求加载的应用拿到 => 加载 => 启动 => 挂载
-            app = await toLoadPromise(app);
-            app = await toBootstrapPromise(app);
-            return toMountPromise(app);
+            app = await toLoadPromise(app)
+            app = await toBootstrapPromise(app)
+            return toMountPromise(app)
         })
         appsToMount.map(async (app) => {
-            app = await toBootstrapPromise(app);
-            return toMountPromise(app);
+            app = await toBootstrapPromise(app)
+            return toMountPromise(app)
         });
     }
 }

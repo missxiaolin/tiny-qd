@@ -1,8 +1,8 @@
 // hashchange   popstate
 
-import { reroute } from "./reroute";
+import { reroute } from "./reroute"
 
-export const routingEventsListeningTo = ['hashchange', 'popstate'];
+export const routingEventsListeningTo = ['hashchange', 'popstate']
 
 
 const capturedEventListeners = { // 后续挂载的事件先暂存起来
@@ -25,22 +25,22 @@ function urlReroute() {
 }
 
 // 我们处理应用加载的逻辑是在最前面
-window.addEventListener('hashchange', urlReroute);
-window.addEventListener('popstate', urlReroute);
-const originalAddEventListener = window.addEventListener;
-const originalRemoveEventListener = window.removeEventListener;
+window.addEventListener('hashchange', urlReroute)
+window.addEventListener('popstate', urlReroute)
+const originalAddEventListener = window.addEventListener
+const originalRemoveEventListener = window.removeEventListener
 window.addEventListener = function (eventName, fn) {
     if (routingEventsListeningTo.indexOf(eventName) >= 0 && !capturedEventListeners[eventName].some(listener => listener == fn)) {
-        capturedEventListeners[eventName].push(fn);
-        return;
+        capturedEventListeners[eventName].push(fn)
+        return
     }
     
     return originalAddEventListener.apply(this, arguments)
 }
 window.removeEventListener = function (eventName, fn) {
     if (routingEventsListeningTo.indexOf(eventName) >= 0) {
-        capturedEventListeners[eventName] = capturedEventListeners[eventName].filter(l => l !== fn);
-        return;
+        capturedEventListeners[eventName] = capturedEventListeners[eventName].filter(l => l !== fn)
+        return
     }
     return originalRemoveEventListener.apply(this, arguments)
 }
@@ -50,20 +50,20 @@ window.removeEventListener = function (eventName, fn) {
 
 function patchedUpdateState(updateState, methodName) {
     return function () {
-        const urlBefore = window.location.href;
+        const urlBefore = window.location.href
         updateState.apply(this, arguments); // 调用切换方法
-        const urlAfter = window.location.href;
+        const urlAfter = window.location.href
 
         if (urlBefore !== urlAfter) {
             // 重新加载应用 传入事件源
-            urlReroute(new PopStateEvent('popstate'));
+            urlReroute(new PopStateEvent('popstate'))
         }
     }
 }
 
 
-window.history.pushState = patchedUpdateState(window.history.pushState, 'pushState');
-window.history.replaceState = patchedUpdateState(window.history.replaceState, 'replaceState');
+window.history.pushState = patchedUpdateState(window.history.pushState, 'pushState')
+window.history.replaceState = patchedUpdateState(window.history.replaceState, 'replaceState')
 
 // 用户可能还会绑定自己的路由事件 vue
 
