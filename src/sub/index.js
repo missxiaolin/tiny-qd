@@ -81,7 +81,7 @@ function mount(opts, mountedInstances, props) {
                 if (!domEl) {
                     throw Error(
                         `If appOptions.el is provided to single-spa-vue, the dom element must exist in the dom. Was provided as ${appOptions.el}`
-                    );
+                    )
                 }
             } else {
                 domEl = appOptions.el
@@ -154,3 +154,23 @@ function update(opts, mountedInstances, props) {
     })
 }
 
+
+/**
+ * 卸载函数
+ * @param {*} opts 
+ * @param {*} mountedInstances 
+ * @param {*} props 
+ */
+function unmount(opts, mountedInstances, props) {
+    return Promise.resolve().then(() => {
+        const instance = mountedInstances[props.name]
+        instance.vueInstance.$destroy()
+        instance.vueInstance.$el.innerHTML = ""
+        delete instance.vueInstance
+
+        if (instance.domEl) {
+            instance.domEl.innerHTML = ""
+            delete instance.domEl
+        }
+    })
+}
