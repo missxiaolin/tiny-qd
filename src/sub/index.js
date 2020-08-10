@@ -135,3 +135,22 @@ function mount(opts, mountedInstances, props) {
     })
 }
 
+/**
+ * 更新
+ * @param {*} opts 
+ * @param {*} mountedInstances 
+ * @param {*} props 
+ */
+function update(opts, mountedInstances, props) {
+    return Promise.resolve().then(() => {
+        const instance = mountedInstances[props.name]
+        const data = {
+            ...(opts.appOptions.data || {}),
+            ...props
+        };
+        for (let prop in data) {
+            instance.vueInstance[prop] = data[prop]
+        }
+    })
+}
+
