@@ -134,3 +134,4 @@ function mount(opts, mountedInstances, props) {
         return instance.vueInstance
     })
 }
+
