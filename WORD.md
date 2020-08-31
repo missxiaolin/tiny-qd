@@ -496,7 +496,7 @@ callAllEventListeners();
 
 - BEM (Block Element Modifier)约定项目前缀
 - CSS-Module 打包时生成不冲突的选择器名
-- Shadow DOM 真正意义上的隔离（官网称影子dom）
+- (Shadow DOM)[https://developer.mozilla.org/zh-CN/docs/Web/Web_Components/Using_shadow_DOM] 真正意义上的隔离（官网称影子dom）
 - css-in-js
 
 ### js 沙箱
